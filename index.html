@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARVR Cinema - Premium Movie Experience</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+         :root {
+            --primary-color: #b8a642;
+            --secondary-color: #4a4a4a;
+            --accent-color: #d4af37;
+            --dark-bg: #1a1a1a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+        /* Navigation - Merged from both */
+        
+        .navbar {
+            background: rgba(26, 26, 26, 0.95) !important;
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand {
+            font-family: 'Lobster', cursive;
+            font-size: 2rem;
+            color: var(--primary-color) !important;
+        }
+        
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin: 0 15px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        /* Hero Section - Enhanced */
+        
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1920') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Lobster', cursive;
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s;
+        }
+        
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s 0.3s both;
+        }
+        
+        .btn-gold {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            animation: fadeInUp 1s 0.6s both;
+        }
+        
+        .btn-gold:hover {
+            background: #9a8b38;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(184, 166, 66, 0.3);
+            color: white;
+        }
+        
+        .btn-outline-gold {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            background: transparent;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline-gold:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        /* Section Styles */
+        
+        .section-padding {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .section-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+        /* Movie Cards - Enhanced with both versions' features */
+        
+        .movie-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: pointer;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            position: relative;
+        }
+        
+        .movie-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .movie-poster {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+        
+        .movie-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .movie-card:hover .movie-poster img {
+            transform: scale(1.1);
+        }
+        
+        .movie-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .movie-card:hover .movie-overlay {
+            opacity: 1;
+        }
+        
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            border: 3px solid white;
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+            background: white;
+            color: var(--primary-color);
+        }
+        
+        .movie-info {
+            padding: 20px;
+        }
+        
+        .movie-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .movie-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .rating {
+            color: var(--primary-color);
+        }
+        
+        .badge-premiere {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        .badge-now {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+        /* How It Works - From first version */
+        
+        .how-it-works {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .step-icon {
+            width: 100px;
+            height: 100px;
+            background: #e9ecef;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            transition: all 0.3s;
+        }
+        
+        .step:hover .step-icon {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .step h4 {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        /* Features Section - From second version */
+        
+        .features-section {
+            background: var(--dark-bg);
+            color: white;
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .feature-box:hover {
+            background: rgba(184, 166, 66, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        /* Explore Section - From first version */
+        
+        .explore-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200') center/cover;
+            padding: 100px 0;
+            color: white;
+            text-align: center;
+        }
+        /* Newsletter - From second version */
+        
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--primary-color), #9a8b38);
+            color: white;
+            padding: 60px 0;
+        }
+        
+        .newsletter-form .form-control {
+            border-radius: 30px 0 0 30px;
+            border: none;
+            padding: 15px 25px;
+        }
+        
+        .newsletter-form .btn {
+            border-radius: 0 30px 30px 0;
+            background: #333;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-weight: 600;
+        }
+        /* Footer - Merged */
+        
+        footer {
+            background: #111;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-logo {
+            font-family: 'Lobster', cursive;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h5 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            transition: color 0.3s;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+        /* Modal Styles - From first version */
+        
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+        }
+        
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .movie-detail-img {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .info-label {
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        
+        .info-value {
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .booking-form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .form-select,
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px;
+        }
+        
+        .form-select:focus,
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(184, 166, 66, 0.25);
+        }
+        
+        .submit-booking {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .submit-booking:hover {
+            background: #9a8b38;
+            transform: translateY(-2px);
+        }
+        /* Toast */
+        
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+        /* Animations */
+        
+        @keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+        /* Responsive */
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            .movie-poster {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">ARVR Cinema</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon bg-white rounded"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="movies.html">Movies</a></li>
+                    <li class="nav-item"><a class="nav-link" href="trailers.html">Trailers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Book Now</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>ARVR Cinema</h1>
+            <p>Experience Movies Like Never Before</p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="#nowShowing" class="btn-gold">Explore Movies</a>
+                <a href="trailers.html" class="btn btn-outline-light btn-lg px-4">Watch Trailers</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down fa-2x text-white"></i>
+        </div>
+    </section>
+
+    <!-- Now Showing Section -->
+    <section class="section-padding" id="nowShowing">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Now Showing</h2>
+                <p class="section-subtitle">Book your tickets for the latest blockbusters</p>
+            </div>
+            <div class="row g-4" id="featuredMovies"></div>
+            <div class="text-center mt-5">
+                <a href="movies.html" class="btn-gold">View All Movies</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container text-center">
+            <h2 class="section-title">How it works</h2>
+            <p class="section-subtitle">3 Simple steps to book your favourite movie!</p>
+            <div class="row mt-5">
+                <div class="col-md-4 step">
+                    <div class="step-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h4>1. Choose your favourite movie</h4>
+                    <p class="text-muted">Browse our collection of latest movies</p>
+                </div>
+                <div class="col-md-4 step">
+                    <div class="step-icon">
+                        <i class="far fa-credit-card"></i>
+                    </div>
+                    <h4>2. Pay for your tickets</h4>
+                    <p class="text-muted">Secure payment gateway</p>
+                </div>
+                <div class="col-md-4 step">
+                    <div class="step-icon">
+                        <i class="fas fa-theater-masks"></i>
+                    </div>
+                    <h4>3. Pick your seats & Enjoy</h4>
+                    <p class="text-muted">Select your preferred seats</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title text-white">Why Choose Us</h2>
+                <p class="section-subtitle text-light">Premium cinema experience</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon"><i class="fas fa-couch"></i></div>
+                        <h4>Luxury Seating</h4>
+                        <p>Recliner seats with extra legroom and premium comfort</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon"><i class="fas fa-volume-up"></i></div>
+                        <h4>Dolby Atmos</h4>
+                        <p>Immersive 3D sound technology for ultimate experience</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                        <h4>Gourmet Snacks</h4>
+                        <p>Wide range of premium food and beverages</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coming Soon -->
+    <section class="section-padding bg-light">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Coming Soon</h2>
+                <p class="section-subtitle">Exciting releases on the horizon</p>
+            </div>
+            <div class="row g-4" id="comingSoonMovies"></div>
+        </div>
+    </section>
+
+    <!-- Explore Section -->
+    <section class="explore-section">
+        <div class="container">
+            <h2 class="display-4 fw-bold mb-4">Explore new movies</h2>
+            <p class="lead mb-4">Watch trailers and book your tickets now</p>
+            <a href="trailers.html" class="btn btn-outline-light btn-lg px-5 me-3">Watch Trailers</a>
+            <a href="booking.html" class="btn-gold btn-lg">Book Tickets</a>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <h3>Subscribe to Our Newsletter</h3>
+                    <p class="mb-0">Get updates on new releases and exclusive offers</p>
+                </div>
+                <div class="col-md-6">
+                    <form class="newsletter-form d-flex" onsubmit="event.preventDefault(); showToast('Thank you for subscribing!', 'success');">
+                        <input type="email" class="form-control" placeholder="Enter your email" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="footer-logo">ARVR Cinema</h3>
+                    <p>Your premium movie destination for the ultimate cinematic experience.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="movies.html">Movies</a></li>
+                            <li><a href="trailers.html">Trailers</a></li>
+                            <li><a href="booking.html">Booking</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Support</h5>
+                        <ul>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Privacy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Contact Info</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Cinema Street, Movie City</li>
+                            <li class="mb-2"><i class="fas fa-phone me-2"></i> +1 234 567 890</li>
+                            <li><i class="fas fa-envelope me-2"></i> info@arvrcinema.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: #333;">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 ARVR Cinema. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal fade" id="bookingModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">RESERVE YOUR TICKET</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img id="modalMovieImage" src="" alt="Movie" class="img-fluid movie-detail-img">
+                        </div>
+                        <div class="col-md-8">
+                            <h3 id="modalMovieTitle" class="text-uppercase mb-4" style="color: var(--primary-color);"></h3>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <p class="info-label mb-1">Genre</p>
+                                    <p class="info-value" id="modalGenre"></p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="info-label mb-1">Duration</p>
+                                    <p class="info-value" id="modalDuration"></p>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <p class="info-label mb-1">Release Date</p>
+                                    <p class="info-value" id="modalRelease"></p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="info-label mb-1">Director</p>
+                                    <p class="info-value" id="modalDirector"></p>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <p class="info-label mb-1">Actors</p>
+                                <p class="info-value" id="modalActors"></p>
+                            </div>
+                            <form id="bookingForm" class="booking-form">
+                                <div class="row g-3">
+                                    <div class="col-md-3">
+                                        <select class="form-select" id="theatre" required>
+                                            <option value="">THEATRE</option>
+                                            <option value="Main Hall">Main Hall</option>
+                                            <option value="VIP Hall">VIP Hall</option>
+                                            <option value="Private Hall">Private Hall</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-select" id="type" required>
+                                            <option value="">TYPE</option>
+                                            <option value="2D">2D</option>
+                                            <option value="3D">3D</option>
+                                            <option value="IMAX">IMAX</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-select" id="date" required>
+                                            <option value="">DATE</option>
+                                            <option value="Today">Today</option>
+                                            <option value="Tomorrow">Tomorrow</option>
+                                            <option value="Weekend">This Weekend</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-select" id="time" required>
+                                            <option value="">TIME</option>
+                                            <option value="10:00 AM">10:00 AM</option>
+                                            <option value="2:00 PM">2:00 PM</option>
+                                            <option value="6:00 PM">6:00 PM</option>
+                                            <option value="9:00 PM">9:00 PM</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" id="firstName" placeholder="First Name" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="tel" class="form-control" id="phone" placeholder="Phone Number" required>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-8">
+                                        <input type="email" class="form-control" id="email" placeholder="Email" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="submit-booking">Book Now</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Enhanced Movie Data with 24 movies
+        const movies = [
+            // Currently Showing
+            {
+                id: 1,
+                title: "Captain Marvel",
+                genre: "Action, Adventure, Sci-Fi",
+                duration: "124",
+                release: "2019-03-08",
+                director: "Anna Boden, Ryan Fleck",
+                actors: "Brie Larson, Samuel L. Jackson, Ben Mendelsohn",
+                rating: 6.8,
+                poster: "https://m.media-amazon.com/images/M/MV5BMTE0YWFmOTMtYTU2ZS00ZTIxLWE3OTEtYTNiYzBkZjViZThiXkEyXkFqcGdeQXVyODMzMzQ4OTI@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400",
+                isNew: true,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/Z1BCujX3pw8"
+            }, {
+                id: 2,
+                title: "Vice",
+                genre: "Biography, Comedy, Drama",
+                duration: "132",
+                release: "2018-12-25",
+                director: "Adam McKay",
+                actors: "Christian Bale, Amy Adams, Steve Carell",
+                rating: 7.2,
+                poster: "https://m.media-amazon.com/images/M/MV5BMTY1NjM0MzgxMV5BMl5BanBnXkFtZTgwNDc4NTY0NjM@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400",
+                isNew: false,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/jO3GsWbE0jQ"
+            }, {
+                id: 3,
+                title: "The Lego Movie 2",
+                genre: "Animation, Action, Adventure",
+                duration: "107",
+                release: "2019-02-08",
+                director: "Mike Mitchell",
+                actors: "Chris Pratt, Elizabeth Banks, Will Arnett",
+                rating: 6.6,
+                poster: "https://m.media-amazon.com/images/M/MV5BMTkyOTkwNDc1N15BMl5BanBnXkFtZTgwNzkyMzk3NjM@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1535572290543-960a8046f5af?w=400",
+                isNew: true,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/XvHSlHhh1gk"
+            }, {
+                id: 4,
+                title: "The Vanishing",
+                genre: "Crime, Mystery, Thriller",
+                duration: "107",
+                release: "2019-01-04",
+                director: "Kristoffer Nyholm",
+                actors: "Gerard Butler, Peter Mullan, Connor Swindells",
+                rating: 5.8,
+                poster: "https://m.media-amazon.com/images/M/MV5BMjE2OTg2NDI0NF5BMl5BanBnXkFtZTgwMzY2MTg0NjM@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400",
+                isNew: false,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/1Y8i2o_5X4w"
+            }, {
+                id: 5,
+                title: "The Kid Who Would Be King",
+                genre: "Action, Adventure, Family",
+                duration: "120",
+                release: "2019-01-25",
+                director: "Joe Cornish",
+                actors: "Louis Ashbourne Serkis, Denise Gough",
+                rating: 6.0,
+                poster: "https://m.media-amazon.com/images/M/MV5BMjI2NDY2NDUyNF5BMl5BanBnXkFtZTgwMjc4NzI1NjM@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=400",
+                isNew: false,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/VlI1qIK-7IY"
+            }, {
+                id: 6,
+                title: "Escape Room",
+                genre: "Action, Adventure, Horror",
+                duration: "99",
+                release: "2019-01-04",
+                director: "Adam Robitel",
+                actors: "Taylor Russell, Logan Miller, Jay Ellis",
+                rating: 6.4,
+                poster: "https://m.media-amazon.com/images/M/MV5BMjQ2NDMwMTY3MF5BMl5BanBnXkFtZTgwNDg5OTc1NjM@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1517604931442-71053e3e2f3f?w=400",
+                isNew: true,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/6dSKUoV0SNI"
+            },
+            // Additional Movies
+            {
+                id: 7,
+                title: "Avengers: Endgame",
+                genre: "Action, Adventure, Drama",
+                duration: "181",
+                release: "2019-04-26",
+                director: "Anthony Russo, Joe Russo",
+                actors: "Robert Downey Jr., Chris Evans, Mark Ruffalo",
+                rating: 8.4,
+                poster: "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=400",
+                isNew: false,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/TcMBFSGVi1c"
+            }, {
+                id: 8,
+                title: "Joker",
+                genre: "Crime, Drama, Thriller",
+                duration: "122",
+                release: "2019-10-04",
+                director: "Todd Phillips",
+                actors: "Joaquin Phoenix, Robert De Niro, Zazie Beetz",
+                rating: 8.4,
+                poster: "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1533488765986-dfa2a9939acd?w=400",
+                isNew: false,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/zAGVQLHvwOY"
+            }, {
+                id: 9,
+                title: "Spider-Man: Far From Home",
+                genre: "Action, Adventure, Sci-Fi",
+                duration: "129",
+                release: "2019-07-02",
+                director: "Jon Watts",
+                actors: "Tom Holland, Samuel L. Jackson, Jake Gyllenhaal",
+                rating: 7.5,
+                poster: "https://m.media-amazon.com/images/M/MV5BMGZlNTY1ZWUtYTMzNC00ZjUyLWE0MjQtMTMxN2E3ODYxMWVmXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=400",
+                isNew: true,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/Nt9L1jCKGnE"
+            }, {
+                id: 10,
+                title: "John Wick: Chapter 3",
+                genre: "Action, Crime, Thriller",
+                duration: "131",
+                release: "2019-05-17",
+                director: "Chad Stahelski",
+                actors: "Keanu Reeves, Halle Berry, Ian McShane",
+                rating: 7.4,
+                poster: "https://m.media-amazon.com/images/M/MV5BMDg2YzI0ODctYjliMy00NTU0LTkxODYtYTNkNjQwMzVmOTcxXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400",
+                isNew: false,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/pU8-7BX9uxs"
+            }, {
+                id: 11,
+                title: "Toy Story 4",
+                genre: "Animation, Adventure, Comedy",
+                duration: "100",
+                release: "2019-06-21",
+                director: "Josh Cooley",
+                actors: "Tom Hanks, Tim Allen, Annie Potts",
+                rating: 7.7,
+                poster: "https://m.media-amazon.com/images/M/MV5BMTYzMDM4NzkxOV5BMl5BanBnXkFtZTgwNzM1Mzg2NzM@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400",
+                isNew: false,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/wmiIUN-7qhE"
+            }, {
+                id: 12,
+                title: "Once Upon a Time in Hollywood",
+                genre: "Comedy, Drama",
+                duration: "161",
+                release: "2019-07-26",
+                director: "Quentin Tarantino",
+                actors: "Leonardo DiCaprio, Brad Pitt, Margot Robbie",
+                rating: 7.6,
+                poster: "https://m.media-amazon.com/images/M/MV5BOTg4ZTNkZmUtMzNlZi00YmFjLTk1MmUtNWQwNTM0YjcyNTNkXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400",
+                isNew: false,
+                comingSoon: false,
+                trailerUrl: "https://www.youtube.com/embed/ELeMaP8EPAA"
+            },
+            // Coming Soon Movies
+            {
+                id: 13,
+                title: "Dune: Part Two",
+                genre: "Action, Adventure, Drama",
+                duration: "166",
+                release: "2024-03-01",
+                director: "Denis Villeneuve",
+                actors: "Timothée Chalamet, Zendaya, Rebecca Ferguson",
+                rating: 8.9,
+                poster: "https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODFhNDYxMjJkNzliXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=400",
+                isNew: true,
+                comingSoon: true,
+                trailerUrl: "https://www.youtube.com/embed/Way9Dexny3w"
+            }, {
+                id: 14,
+                title: "Deadpool 3",
+                genre: "Action, Adventure, Comedy",
+                duration: "TBA",
+                release: "2024-07-26",
+                director: "Shawn Levy",
+                actors: "Ryan Reynolds, Hugh Jackman, Emma Corrin",
+                rating: 0,
+                poster: "https://m.media-amazon.com/images/M/MV5BZTk5ODY0MmQtMzA3Ni00NGY1LThiYzItZThiNjA3MDE4MjFiXkEyXkFqcGdeQXVyMTU2Mjg2NjE@._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=400",
+                isNew: true,
+                comingSoon: true,
+                trailerUrl: "https://www.youtube.com/embed/73_1biulkYk"
+            }, {
+                id: 15,
+                title: "Furiosa: A Mad Max Saga",
+                genre: "Action, Adventure, Sci-Fi",
+                duration: "TBA",
+                release: "2024-05-24",
+                director: "George Miller",
+                actors: "Anya Taylor-Joy, Chris Hemsworth, Tom Burke",
+                rating: 0,
+                poster: "https://m.media-amazon.com/images/M/MV5BNmYzMWVjNmQtNjJjNy00M2Y4LTkzZjQtZWQ5NmYzMjRjMDcyXkEyXkFqcGdeQXVyMTM1NjM2ODg1._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400",
+                isNew: true,
+                comingSoon: true,
+                trailerUrl: "https://www.youtube.com/embed/XdMD/lE1khQ"
+            }, {
+                id: 16,
+                title: "Kingdom of the Planet of the Apes",
+                genre: "Action, Adventure, Sci-Fi",
+                duration: "TBA",
+                release: "2024-05-10",
+                director: "Wes Ball",
+                actors: "Freya Allan, Kevin Durand, Dichen Lachman",
+                rating: 0,
+                poster: "https://m.media-amazon.com/images/M/MV5BY2RkZGUzNmUtM2JlYi00ZDVhLWE2NTEtZDg5NDQ1MzVmM2VlXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_.jpg",
+                fallbackImage: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=400",
+                isNew: true,
+                comingSoon: true,
+                trailerUrl: "https://www.youtube.com/embed/XtFI7SNtVpY"
+            }
+        ];
+
+        // Create Movie Card HTML
+        function createMovieCard(movie) {
+            const badge = movie.isNew ? '<span class="badge-premiere">PREMIERE</span>' : '';
+            const nowShowing = !movie.comingSoon ? '<span class="badge-now">NOW SHOWING</span>' : '';
+
+            return `
+                <div class="col-lg-4 col-md-6">
+                    <div class="movie-card">
+                        ${badge}
+                        ${nowShowing}
+                        <div class="movie-poster">
+                            <img src="${movie.poster}" alt="${movie.title}" onerror="this.src='${movie.fallbackImage}'">
+                            <div class="movie-overlay">
+                                <a href="${movie.trailerUrl}" target="_blank" class="play-btn" onclick="event.stopPropagation();">
+                                    <i class="fas fa-play"></i>
+                                </a>
+                                <button class="btn btn-light btn-sm px-4 mb-2" onclick="event.stopPropagation(); location.href='movie-detail.html?id=${movie.id}'">View Details</button>
+                                <button class="btn btn-gold btn-sm px-4" onclick="event.stopPropagation(); openBooking(${movie.id})">Book Now</button>
+                            </div>
+                        </div>
+                        <div class="movie-info">
+                            <h5 class="movie-title">${movie.title}</h5>
+                            <div class="movie-meta">
+                                <span class="me-2">${movie.genre}</span> | 
+                                <span class="ms-2">${movie.duration} min</span>
+                            </div>
+                            <div class="rating">
+                                ${generateStars(movie.rating)}
+                                <span class="ms-2 text-muted">${movie.rating > 0 ? movie.rating + '/10' : 'Coming Soon'}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Generate Star Rating
+        function generateStars(rating) {
+            if (rating === 0) return '<i class="far fa-star"></i>'.repeat(5);
+            const fullStars = Math.floor(rating / 2);
+            const hasHalf = rating % 2 >= 1;
+            let stars = '';
+
+            for (let i = 0; i < 5; i++) {
+                if (i < fullStars) {
+                    stars += '<i class="fas fa-star"></i>';
+                } else if (i === fullStars && hasHalf) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    stars += '<i class="far fa-star"></i>';
+                }
+            }
+            return stars;
+        }
+
+        // Load Featured Movies (Now Showing - first 6)
+        function loadFeaturedMovies() {
+            const container = document.getElementById('featuredMovies');
+            const featured = movies.filter(m => !m.comingSoon).slice(0, 6);
+            container.innerHTML = featured.map(movie => createMovieCard(movie)).join('');
+        }
+
+        // Load Coming Soon Movies
+        function loadComingSoon() {
+            const container = document.getElementById('comingSoonMovies');
+            const comingSoon = movies.filter(m => m.comingSoon).slice(0, 4);
+            container.innerHTML = comingSoon.map(movie => createMovieCard(movie)).join('');
+        }
+
+        // Open Booking Modal
+        function openBooking(movieId) {
+            const movie = movies.find(m => m.id === movieId);
+            if (!movie || movie.comingSoon) {
+                showToast('This movie is coming soon! Check back later.', 'info');
+                return;
+            }
+
+            document.getElementById('modalMovieImage').src = movie.poster;
+            document.getElementById('modalMovieImage').onerror = function() {
+                this.src = movie.fallbackImage;
+            };
+            document.getElementById('modalMovieTitle').textContent = movie.title;
+            document.getElementById('modalGenre').textContent = movie.genre;
+            document.getElementById('modalDuration').textContent = movie.duration + ' min';
+            document.getElementById('modalRelease').textContent = movie.release;
+            document.getElementById('modalDirector').textContent = movie.director;
+            document.getElementById('modalActors').textContent = movie.actors;
+
+            new bootstrap.Modal(document.getElementById('bookingModal')).show();
+        }
+
+        // Handle Booking Form
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = {
+                theatre: document.getElementById('theatre').value,
+                type: document.getElementById('type').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value
+            };
+
+            // Simulate booking
+            showToast('Booking successful! Confirmation sent to ' + formData.email, 'success');
+
+            setTimeout(() => {
+                bootstrap.Modal.getInstance(document.getElementById('bookingModal')).hide();
+                this.reset();
+            }, 2000);
+        });
+
+        // Custom Toast Notification
+        function showToast(message, type = 'success') {
+            const toastContainer = document.querySelector('.toast-container');
+            const bgColor = type === 'success' ? 'bg-success' : type === 'info' ? 'bg-info' : 'bg-danger';
+            const icon = type === 'success' ? 'fa-check-circle' : type === 'info' ? 'fa-info-circle' : 'fa-exclamation-circle';
+
+            const toastHTML = `
+                <div class="toast align-items-center text-white ${bgColor} border-0 show" role="alert">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="fas ${icon} me-2"></i>${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" onclick="this.closest('.toast').remove()"></button>
+                    </div>
+                </div>
+            `;
+
+            toastContainer.insertAdjacentHTML('beforeend', toastHTML);
+
+            setTimeout(() => {
+                const toast = toastContainer.querySelector('.toast:last-child');
+                if (toast) toast.remove();
+            }, 5000);
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '10px 0';
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.3)';
+            } else {
+                navbar.style.padding = '15px 0';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFeaturedMovies();
+            loadComingSoon();
+        });
+    </script>
+</body>
+
+</html>
